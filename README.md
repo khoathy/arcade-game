@@ -3,8 +3,8 @@
 ## Table of Contents
 1. [About The Project](#about-the-project)
 2. [Gameplay Rules](#gameplay-rules)
-3. [Features](#features)
-4. [Instructions](#instructions)
+3. [Instructions](#instructions)
+4. [Keyboard Controls](#keyboard-controls)
 
 
 ## About The Project
