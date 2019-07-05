@@ -24,8 +24,8 @@ You have a Player and Enemies (Bugs). The goal of the Player is to reach the wat
 - Enjoy this fun game!
 
 ## Keyboard Controls
-left ← to move Player to the left
-right → to move Player to the right
-up ↑ to move Playerl up
-down ↓ to move Player down
+- left ← to move Player to the left
+- right → to move Player to the right
+- up ↑ to move Playerl up
+- down ↓ to move Player down
 
