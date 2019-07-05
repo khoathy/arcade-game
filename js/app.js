@@ -1,30 +1,56 @@
+
 // Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+class Enemy {
+    constructor (x,y,sprite) {
+        this.x = x;
+        this.y = y;
+        this.sprite = sprite;
+    }
+
+    // Update the enemy's position, required method for game
+    // Parameter: dt, a time delta between ticks
+    update(dt) {
+        console.log('update enemy');
+    }
+
+    // Draw the enemy on the screen, required method for game
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        console.log('render enemy');
+    };
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+
+
+class Player {
+    constructor (x,y,sprite) {
+        this.x = x;
+        this.y = y;
+        this.sprite = sprite;
+    }
+
+    // Update the player's position, required method for game
+    update(dt) {
+    }
+
+    // Draw the player on the screen, required method for game
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+       
+    }
+
+    // a handleInput() method
+    handleInput(){
+    }
 };
 
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
+const enemy = new Enemy(100,200,'images/enemy-bug.png');
+const player = new Player(100,200,'images/char-boy.png');
+
+const allEnemies = [];
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
