@@ -1,7 +1,6 @@
 /* Variable declarations and get DOM elements */
 
 // For Congrats modal
-// const restartBtn = document.getElementById('restart-btn');
 const gameoverModal = document.getElementById('gameover');
 const closeModal = document.querySelector('.modal-close'); 
 const replayBtn = document.querySelector('.modal-replayBtn');
@@ -10,30 +9,35 @@ const gameoverScore = document.getElementById( 'gameover-score');
 // For Info panel
 const scoreDisplay = document.getElementById('score-display');
 const lifeDisplay = document.getElementById('life-display');
+let score = 0;
+let life = 3;
 
+/*
+ * Initialize game 
+ */
 function initGame() {
     score = 0;
-    life = 2;
+    life = 3;
     scoreDisplay.innerText = "0";
-    lifeDisplay.innerText = " 2";
+    lifeDisplay.innerText = " 3";
+    enemyY = [];
     //set up event listener for buttons
-    // restartBtn.addEventListener('click', resetGame);
     closeModal.addEventListener('click',hideModal);
     replayBtn.addEventListener('click',replayGame);
 }
 
 /*
- * gameover Sound and popup Modal when Game Over 
+ * Gameover Sound and popup Modal when Game Over 
  */
 
+
 function gameOver(){
-    lockDeck = true;
-    setTimeout(winningSound,500);
+    setTimeout(gameOverSound,500);
     setTimeout(showModal,800);
 }
 
-// Winning sound after player finish 2 lifes
-function winningSound(){
+// Winning sound after 2 lifes
+function gameOverSound(){
     var audio = new Audio("sound/win.mp3");
     audio.play();
 }
@@ -41,21 +45,20 @@ function winningSound(){
 // Display, close the modal, replay btn
 function showModal(){
     gameoverModal.style.display = "flex";
-    summary();
+    summaryGame();
 }
 
 function hideModal() {
     gameoverModal.style.display = "none";
-    resetGame();
+    initGame();
 }
 
 function replayGame() {
     hideModal();
-    resetGame();
+    initGame();
 }
 
-// Game summary
-function summary(){
+function summaryGame(){
     gameoverScore.textContent = score;
 }
 
@@ -89,6 +92,13 @@ class Enemy {
             // Return player to initial position
             player.x = 200;
             player.y = 390;
+            life -=1 ;
+            lifeDisplay.textContent = life;
+            console.log(life); 
+            //check Life ended
+            if (life == 0) {
+                showModal();
+            }
         }
     
 
@@ -148,7 +158,7 @@ class Player {
 
 // Instantiate objects.
 // Place all enemy objects in an array called allEnemies
-const enemyY = [60, 145, 225];
+let enemyY = [60, 145, 225];
 const allEnemies = enemyY.map((y, index) => {
     return new Enemy(-150 * (index + 1) ,y);
 });
@@ -171,3 +181,4 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+initGame();
