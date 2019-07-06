@@ -1,11 +1,10 @@
 
-// Enemies our player must avoid
-
+// Class for Enemies that our player must avoid
 class Enemy {
-    constructor (x,y,sprite) {
+    constructor (x,y) {
         this.x = x;
         this.y = y;
-        this.sprite = sprite;
+        this.sprite = 'images/enemy-bug.png';
     }
 
     // Update the enemy's position, required method for game
@@ -18,11 +17,11 @@ class Enemy {
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
         console.log('render enemy');
-    };
+    }
 };
 
 
-
+// Class for player 
 class Player {
     constructor (x,y,sprite) {
         this.x = x;
@@ -36,19 +35,27 @@ class Player {
 
     // Draw the player on the screen, required method for game
     render() {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-       
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);  
     }
 
     // a handleInput() method
-    handleInput(){
+    handleInput(move) {
+        if (move == "left") {
+            this.x -= 100;
+        } else if (move == "right") {
+            this.x += 100;
+        } else if (move == "up") {
+            this.y -= 83;
+        } else if (move == "down") {
+            this.y += 83;
+        }
     }
 };
 
 
 
-const enemy = new Enemy(100,200,'images/enemy-bug.png');
-const player = new Player(100,200,'images/char-boy.png');
+const enemy = new Enemy(100,200);
+const player = new Player(5,380,'images/char-boy.png');
 
 const allEnemies = [];
 
