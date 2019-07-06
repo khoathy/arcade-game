@@ -5,18 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="arcade game">
     <title>Classic arcade game</title>
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <section class="info-panel">
-        <div class="score">Score : <span id="score-display" class="info-number">100</span></div>
+        <div class="score">Score : <span id="score-display" class="info-number">0</span></div>
         <div class="life">
             <img class="life-img" src="images/char-boy.png" alt="life image">
-            <span class="life-text">&nbsp; x &nbsp;</span><span id="life-display" class="info-number">1</span></div>
+            <span class="life-text">&nbsp; x &nbsp;</span><span id="life-display" class="info-number">2</span></div>
         </div>
     </section>
+
+    <!-- The Popup Modal -->
+    <div id="gameover" class="modal-gameover">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <img class="gameover-img" src="images/char-smile.png" alt="character image">
+            <h3>GAME OVER</h3>
+            <ul class= "gameover-info"> 
+                <li class="gameover-item"><span class="info">Your score : </span><span id="gameover-score" class="info-summary"></span></li>
+            </ul>
+            <button type="button" class="modal-replayBtn">Replay</button>
+        </div>
+    </div>    
+    
     
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>

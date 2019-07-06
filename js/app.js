@@ -1,3 +1,64 @@
+/* Variable declarations and get DOM elements */
+
+// For Congrats modal
+// const restartBtn = document.getElementById('restart-btn');
+const gameoverModal = document.getElementById('gameover');
+const closeModal = document.querySelector('.modal-close'); 
+const replayBtn = document.querySelector('.modal-replayBtn');
+const gameoverScore = document.getElementById( 'gameover-score');
+  
+// For Info panel
+const scoreDisplay = document.getElementById('score-display');
+const lifeDisplay = document.getElementById('life-display');
+
+function initGame() {
+    score = 0;
+    life = 2;
+    scoreDisplay.innerText = "0";
+    lifeDisplay.innerText = " 2";
+    //set up event listener for buttons
+    // restartBtn.addEventListener('click', resetGame);
+    closeModal.addEventListener('click',hideModal);
+    replayBtn.addEventListener('click',replayGame);
+}
+
+/*
+ * gameover Sound and popup Modal when Game Over 
+ */
+
+function gameOver(){
+    lockDeck = true;
+    setTimeout(winningSound,500);
+    setTimeout(showModal,800);
+}
+
+// Winning sound after player finish 2 lifes
+function winningSound(){
+    var audio = new Audio("sound/win.mp3");
+    audio.play();
+}
+
+// Display, close the modal, replay btn
+function showModal(){
+    gameoverModal.style.display = "flex";
+    summary();
+}
+
+function hideModal() {
+    gameoverModal.style.display = "none";
+    resetGame();
+}
+
+function replayGame() {
+    hideModal();
+    resetGame();
+}
+
+// Game summary
+function summary(){
+    gameoverScore.textContent = score;
+}
+
 
 // Class for Enemies that our player must avoid
 class Enemy {
