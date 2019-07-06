@@ -27,6 +27,8 @@ class Player {
         this.x = x;
         this.y = y;
         this.sprite = sprite;
+        this.width = 67;
+        this.height = 75;
     }
 
     // Update the player's position, required method for game
@@ -40,14 +42,16 @@ class Player {
 
     // a handleInput() method
     handleInput(move) {
-        if (move == "left") {
-            this.x -= 100;
-        } else if (move == "right") {
-            this.x += 100;
-        } else if (move == "up") {
-            this.y -= 83;
-        } else if (move == "down") {
-            this.y += 83;
+        const horizontal = 100;
+        const vertical = 83;
+        if (move == "left" && this.x - horizontal > 0) {
+            this.x -= horizontal;
+        } else if (move == "right" && this.x + horizontal < ctx.canvas.width) {
+            this.x += horizontal;
+        } else if (move == "up" && this.y + this.height - vertical >= 0) {
+            this.y -= vertical;
+        } else if (move == "down" && this.y + 180 + vertical < ctx.canvas.height) {
+            this.y += vertical;
         }
     }
 };
