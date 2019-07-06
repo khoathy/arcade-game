@@ -18,6 +18,23 @@ class Enemy {
         } else {
             this.x += (Math.floor(Math.random()) + 1) * this.speed * dt;
         }
+
+        //collision detection. If collided, reset player's position
+        let enemyLeftMax = this.x - this.width + 20;
+        let enemyRightMax = this.x + this.width - 20;
+        let enemyTopMax = this.y - this.height;
+        let enemyBottomMax = this.y + this.height;
+        if (player.x > enemyLeftMax && player.x < enemyRightMax && player.y > enemyTopMax && player.y < enemyBottomMax){
+            // Return player to initial position
+            player.x = 200;
+            player.y = 390;
+        }
+    
+
+//     // Change the value of score to 0.
+//     score = 0;
+//     document.getElementById("score-display").innerHTML = score;
+//   }
     }
 
     // Draw the enemy on the screen, required method for game
@@ -25,6 +42,8 @@ class Enemy {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
         // console.log(this);
     }
+
+
 };
 
 
@@ -34,7 +53,7 @@ class Player {
         this.x = x;
         this.y = y;
         this.sprite = sprite;
-        this.width = 67;
+        this.width = 66;
         this.height = 75;
     }
 
@@ -47,10 +66,12 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);  
     }
 
-    // Move player around but only inside canvas
+    // Player can move around but only inside canvas
     handleInput(move) {
+        // Space between each step
         const horizontal = 100;
         const vertical = 83;
+
         if (move == "left" && this.x - horizontal > 0) {
             this.x -= horizontal;
         } else if (move == "right" && this.x + horizontal < ctx.canvas.width) {
@@ -64,18 +85,16 @@ class Player {
 };
 
 
-
-const player = new Player(5,380,'images/char-boy.png');
-
-const enemyY = [55, 140, 230];
+// Instantiate objects.
+// Place all enemy objects in an array called allEnemies
+const enemyY = [60, 145, 225];
 const allEnemies = enemyY.map((y, index) => {
     return new Enemy(-150 * (index + 1) ,y);
 });
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 
+// Place the player object in a variable called player
+const player = new Player(200,390,'images/char-boy.png');
 
 
 // This listens for key presses and sends the keys to your
@@ -90,3 +109,4 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
