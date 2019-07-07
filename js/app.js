@@ -1,17 +1,19 @@
 /* Variable declarations and get DOM elements */
 
-// For Congrats modal
+// For Instruction modal
+const instructionModal = document.getElementById('instruction');
+const closeInstruction = document.querySelector('.instruction-close');
+
+// For Gameover modal
 const gameoverModal = document.getElementById('gameover');
 const closeGameover = document.querySelector('.gameover-close'); 
 const replayBtn = document.querySelector('.modal-replayBtn');
 const gameoverScore = document.getElementById('gameover-score');
 const gameoverGrade = document.getElementById('gameover-grade');
-const instructionModal = document.getElementById('instruction');
-const closeInstruction = document.querySelector('.instruction-close'); 
-const instructionBtn = document.getElementById('instruction-btn');
   
 // For Info panel
 const scoreDisplay = document.getElementById('score-display');
+const instructionBtn = document.getElementById('instruction-btn');
 const lifeDisplay = document.getElementById('life-display');
 let score = 0;
 let life = 3;
@@ -37,13 +39,18 @@ function initGame() {
 }
 
 
-// Sends the keys pressed to Player.handleInput() method to move player
-function replayShortcut(event) {
-    if(event.keyCode == 32 || event.keyCode == 13) {
+/*
+ * Keyboard shortcut 
+ */
+
+// Keyboard shortcuts (press space or enter) to replay
+function replayShortcut(e) {
+    if(e.keyCode == 32 || e.keyCode == 13) {
         replayGame();  
     } 
 }
 
+// Send the keys pressed to Player.handleInput() method to move player
 function movePlayer(e) {
     var allowedKeys = {
         37: 'left',
@@ -58,28 +65,31 @@ function movePlayer(e) {
 /*
  * Game Sound 
  */
+// Make sound from a given audio file
+function makeSound(audioFile){
+    var audio = new Audio(audioFile);
+    audio.play();
+}
+
 // Sound when reach water
 function winSound(){
-    var audio = new Audio("sound/success.mp3");
-    audio.play();
+    makeSound("sound/success.mp3");
 }
 
+// Sound when enemy and player collide
 function collideSound(){
-    var audio = new Audio("sound/collide.mp3");
-    audio.play();
+    makeSound("sound/collide.mp3");
 }
 
-// Gameover sound after using all lifes
+// Gameover sound 
 function gameOverSound(){
     // if low score
     if (score <= 20) { 
-        var audio = new Audio("sound/gameover.mp3");
-        audio.play();
+        makeSound("sound/gameover.mp3");
     }
     // if high score
     if (score > 20) { 
-        var audio = new Audio("sound/congrats.mp3");
-        audio.play();
+        makeSound("sound/congrats.mp3");
     }
 }
 
@@ -229,11 +239,11 @@ class Player {
 
         if (move == "left" && this.x - horizontal >= 0) {
             this.x -= horizontal;
-        } else if (move == "right" && this.x + horizontal < ctx.canvas.width) {
+        } else if (move == "right" && this.x + horizontal < ctx.canvas.width -10) {
             this.x += horizontal;
         } else if (move == "up" && this.y + this.height - vertical >= 0) {
             this.y -= vertical;
-        } else if (move == "down" && this.y + 180 + vertical < ctx.canvas.height) {
+        } else if (move == "down" && this.y + vertical < ctx.canvas.height - 180) {
             this.y += vertical;
         }
     }
