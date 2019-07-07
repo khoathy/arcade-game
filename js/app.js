@@ -5,12 +5,14 @@ const gameoverModal = document.getElementById('gameover');
 const closeModal = document.querySelector('.modal-close'); 
 const replayBtn = document.querySelector('.modal-replayBtn');
 const gameoverScore = document.getElementById( 'gameover-score');
+const gameoverGrade = document.getElementById( 'gameover-grade');
   
 // For Info panel
 const scoreDisplay = document.getElementById('score-display');
 const lifeDisplay = document.getElementById('life-display');
 let score = 0;
 let life = 3;
+let enemyY = [60, 145, 225];
 
 /*
  * Initialize game 
@@ -20,26 +22,50 @@ function initGame() {
     life = 3;
     scoreDisplay.innerText = "0";
     lifeDisplay.innerText = " 3";
-    enemyY = [];
+    enemyY = [60, 145, 225];
     //set up event listener for buttons
     closeModal.addEventListener('click',hideModal);
     replayBtn.addEventListener('click',replayGame);
+    document.addEventListener('keyup', movePlayer);
 }
+
+
+// Sends the keys pressed to Player.handleInput() method to move player
+function movePlayer(e) {
+    var allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down'
+    };
+    player.handleInput(allowedKeys[e.keyCode]);
+}
+
+
+/*
+ * Game Sound 
+ */
+// Sound when reach water
+function winSound(){
+    var audio = new Audio("sound/success.mp3");
+    audio.play();
+}
+
+// Gameover sound after using all lifes
+function gameOverSound(){
+    var audio = new Audio("sound/gameover.mp3");
+    audio.play();
+}
+
 
 /*
  * Gameover Sound and popup Modal when Game Over 
  */
 
-
 function gameOver(){
-    setTimeout(gameOverSound,500);
-    setTimeout(showModal,800);
-}
-
-// Winning sound after 2 lifes
-function gameOverSound(){
-    var audio = new Audio("sound/win.mp3");
-    audio.play();
+    setTimeout(gameOverSound,350);
+    setTimeout(showModal,200);
+    document.removeEventListener('keyup', movePlayer);
 }
 
 // Display, close the modal, replay btn
@@ -60,8 +86,30 @@ function replayGame() {
 
 function summaryGame(){
     gameoverScore.textContent = score;
+    grade();
 }
 
+
+// Grade based on scores
+function grade() {
+	if (score <= 20) {
+		gameoverGrade.textContent = 'Beginner';
+	}
+	if (score > 20 && score <= 40) {
+		gameoverGrade.textContent = 'Average';
+	}
+	if (score > 40 && score <= 60) {
+        gameoverGrade.textContent = 'Great';	
+    }
+	if(score > 60) {
+		gameoverGrade.textContent = 'Expert';
+	}
+};
+
+function restartPlayer(){
+    player.x = 200;
+    player.y = 390;
+}
 
 // Class for Enemies that our player must avoid
 class Enemy {
@@ -90,31 +138,21 @@ class Enemy {
         let enemyBottomMax = this.y + this.height;
         if (player.x > enemyLeftMax && player.x < enemyRightMax && player.y > enemyTopMax && player.y < enemyBottomMax){
             // Return player to initial position
-            player.x = 200;
-            player.y = 390;
+            restartPlayer();
             life -=1 ;
             lifeDisplay.textContent = life;
             console.log(life); 
-            //check Life ended
+            //check if Game ends
             if (life == 0) {
-                showModal();
+                gameOver();
             }
         }
-    
-
-//     // Change the value of score to 0.
-//     score = 0;
-//     document.getElementById("score-display").innerHTML = score;
-//   }
     }
 
     // Draw the enemy on the screen, required method for game
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-        // console.log(this);
     }
-
-
 };
 
 
@@ -128,8 +166,16 @@ class Player {
         this.height = 75;
     }
 
-    // Update the player's position, required method for game
+    // Update the player's position
     update(dt) {
+        if (this.y < 50) {
+            // sound when win
+            winSound();
+            // restart player, update score when win
+            restartPlayer();
+            score += 10;
+            scoreDisplay.textContent = score;
+        }
     }
 
     // Draw the player on the screen, required method for game
@@ -158,8 +204,8 @@ class Player {
 
 // Instantiate objects.
 // Place all enemy objects in an array called allEnemies
-let enemyY = [60, 145, 225];
-const allEnemies = enemyY.map((y, index) => {
+
+let allEnemies = enemyY.map((y, index) => {
     return new Enemy(-150 * (index + 1) ,y);
 });
 
@@ -168,17 +214,13 @@ const allEnemies = enemyY.map((y, index) => {
 const player = new Player(200,390,'images/char-boy.png');
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
 
-    player.handleInput(allowedKeys[e.keyCode]);
-});
+
+// Keyboard shortcut to replay 
+document.addEventListener("keydown", function(event) {
+    if(event.keyCode == 32) {
+        replayGame();  
+    } 
+})
 
 initGame();
