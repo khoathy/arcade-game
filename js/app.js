@@ -33,17 +33,17 @@ function initGame() {
     closeInstruction.addEventListener('click',hideInstruction);
     closeGameover.addEventListener('click',hideGameover);
     replayBtn.addEventListener('click',replayGame);
-    // Keyboard shortcut to control player
+    // Listen for Keyboard shortcut to control player
     document.addEventListener('keyup', movePlayer);
-    // Keyboard shortcut to close instruction modal
+    // Listen for Keyboard shortcut to close instruction modal
     document.addEventListener('keydown', hideInstruction);
-    // Keyboard shortcut to replay 
+    // Listen for Keyboard shortcut to replay game
     document.addEventListener('keydown', replayShortcut);
 }
 
 
 /*
- * Keyboard shortcut 
+ * Keyboard shortcut and control
  */
 
 // Keyboard shortcuts (press space or enter) to replay
@@ -85,7 +85,7 @@ function hideInstruction() {
 
 
 /*
- * Game Sounds 
+ * Sound Effects
  */
 // Make sound from a given audio file
 function makeSound(audioFile){
@@ -105,11 +105,11 @@ function collideSound(){
 
 // Gameover sound 
 function gameOverSound(){
-    // if low score
+    // Gameover sound if low score
     if (score <= 20) { 
         makeSound("sound/gameover.mp3");
     }
-    // if high score
+    // Gameover sound if high score
     if (score > 20) { 
         makeSound("sound/congrats.mp3");
     }
@@ -119,14 +119,13 @@ function gameOverSound(){
 /*
  * Music and popup Modal when Game Over 
  */
-
 function gameOver(){
     setTimeout(gameOverSound,350);
     setTimeout(showGameover,200);
     document.removeEventListener('keyup', movePlayer);
 }
 
-// Display, close the modal, replay btn
+// Display, close Game Over the modal, replay btn
 function showGameover(){
     gameoverModal.style.display = "flex";
     summaryGame();
@@ -185,11 +184,10 @@ class Enemy {
         this.sprite = 'images/enemy-bug.png';
         this.width = 96;
         this.height = 65;
-        this.speed = 250;
+        this.speed = 390;
     }
 
-    // Update the enemy's position, required method for game
-    // Parameter: dt, a time delta between ticks
+    // Update the enemy's position - Parameter: dt, a time delta between ticks
     update(dt) {
         if (this.x - this.width > ctx.canvas.width) {
             this.x = -150 * Math.floor(Math.random() * 5) + 1 ;
@@ -197,19 +195,23 @@ class Enemy {
             this.x += (Math.floor(Math.random()) + 1) * this.speed * dt;
         }
 
-        //collision detection. If collided, reset player's position
+        //Collision detection. If collided, reset player's position
         let enemyLeftMax = this.x - this.width + 20;
         let enemyRightMax = this.x + this.width - 20;
         let enemyTopMax = this.y - this.height;
         let enemyBottomMax = this.y + this.height;
+
         if (player.x > enemyLeftMax && player.x < enemyRightMax && player.y > enemyTopMax && player.y < enemyBottomMax){
-            // Return player to initial position
             collideSound();
+
+            // Return player to initial position
             restartPlayer();
+
+            // Update number of lives left
             life -=1 ;
             lifeDisplay.textContent = life;
             
-            //check if Game ends
+            //check if Game's over
             if (life == 0) {
                 gameOver();
             }
@@ -238,8 +240,11 @@ class Player {
         if (this.y < 50) {
             // sound when win
             winSound();
+
             // restart player, update score when win
             restartPlayer();
+
+            // update score
             score += 10;
             scoreDisplay.textContent = score;
         }
@@ -269,15 +274,11 @@ class Player {
 };
 
 
-// Instantiate objects.
-// Place all enemy objects in an array called allEnemies
-
+// Instantiate objects
 let allEnemies = enemyY.map((y, index) => {
     return new Enemy(-150 * (index + 1) ,y);
 });
 
-
-// Place the player object in a variable called player
 const player = new Player(200,390,'images/char-boy.png');
 
 initGame();
