@@ -1,12 +1,12 @@
 /* Variable declarations and get DOM elements */
 
 // For Instruction modal
-const instructionModal = document.getElementById('instruction');
-const closeInstruction = document.querySelector('.instruction-close');
+const instructionModal = document.getElementById('modal-instruction');
+const closeInstruction = document.getElementById('instruction-close');
 
 // For Gameover modal
-const gameoverModal = document.getElementById('gameover');
-const closeGameover = document.querySelector('.gameover-close'); 
+const gameoverModal = document.getElementById('modal-gameover');
+const closeGameover = document.getElementById('gameover-close'); 
 const replayBtn = document.querySelector('.modal-replayBtn');
 const gameoverScore = document.getElementById('gameover-score');
 const gameoverGrade = document.getElementById('gameover-grade');
@@ -33,7 +33,10 @@ function initGame() {
     closeInstruction.addEventListener('click',hideInstruction);
     closeGameover.addEventListener('click',hideGameover);
     replayBtn.addEventListener('click',replayGame);
+    // Keyboard shortcut to control player
     document.addEventListener('keyup', movePlayer);
+    // Keyboard shortcut to close instruction modal
+    document.addEventListener('keydown', hideInstruction);
     // Keyboard shortcut to replay 
     document.addEventListener('keydown', replayShortcut);
 }
@@ -42,6 +45,13 @@ function initGame() {
 /*
  * Keyboard shortcut 
  */
+
+// Keyboard shortcuts (press space or enter) to replay
+function closeModalShortcut(e) {
+    if(e.keyCode == 32 || e.keyCode == 13) {
+        hideInstruction();  
+    } 
+}
 
 // Keyboard shortcuts (press space or enter) to replay
 function replayShortcut(e) {
@@ -63,7 +73,19 @@ function movePlayer(e) {
 
 
 /*
- * Game Sound 
+ * Instruction Modal  
+ */
+function showInstruction(){
+    instructionModal.style.display = "flex";
+}
+
+function hideInstruction() {
+    instructionModal.style.display = "none";
+}
+
+
+/*
+ * Game Sounds 
  */
 // Make sound from a given audio file
 function makeSound(audioFile){
@@ -120,13 +142,13 @@ function replayGame() {
     initGame();
 }
 
+// Display score and grade
 function summaryGame(){
     gameoverScore.textContent = score;
     grade();
 }
 
-
-// Grade based on scores
+// Show grade based on scores
 function grade() {
 	if (score <= 20) {
 		gameoverGrade.textContent = 'Beginner';
@@ -143,21 +165,18 @@ function grade() {
 };
 
 
-// Show Instruction Modal
-function showInstruction(){
-    instructionModal.style.display = "flex";
-}
-
-function hideInstruction() {
-    instructionModal.style.display = "none";
-}
-
-// Reset player
+/*
+ * Reset player position
+ */
 function restartPlayer(){
     player.x = 200;
     player.y = 390;
 }
 
+
+/*
+ * Classes
+ */
 // Class for Enemies that our player must avoid
 class Enemy {
     constructor (x,y) {

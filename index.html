@@ -23,24 +23,28 @@
     </section>
 
     <!-- The Instruction Modal -->
-    <div id="instruction" class="modal-instruction">
+    <div id="modal-instruction" class="modal">
         <div class="modal-content modal-content-instruction">
-            <span class="instruction-close">&times;</span>
+            <span id="instruction-close" class="modal-close">&times;</span>
             <h3>Instructions</h3>
-            <ul class= "instruction-info"> 
-                <li class="instruction-item"><span class="info-key">press space _ or enter &#8629;</span> <span class="info-detail">restart the game</span></li>  
-                <li class="instruction-item"><span class="info-key">press left arrow &#8592;</span><span class="info-detail">move Player to the left</span></li>
-                <li class="instruction-item"><span class="info-key">press right arrow &#8594;</span><span class="info-detail">move Player to the right</span></li>
-                <li class="instruction-item"><span class="info-key">press up arrow&#8593;</span> <span class="info-detail">move Playerl up</span></li>
-                <li class="instruction-item"><span class="info-key">press down arrow &#8595;</span> <span class="info-detail">move Player down</span></li>         
+            <ul class="instruction-info"> 
+                <p class="paragraph" >You have a Player and Enemies (Bugs). Each time your player reaches the water (at the top) without colliding into any enemies, you score 10 points. <br>
+                    The player has 3 lives, so could die 3 times before the game is over. <br>
+                    Let's try to win with the highest score!
+                </p>
+                <li class="instruction-item"><span class="info-key">press space _ or enter &#8629;</span>: <span class="info-detail">restart the game</span></li>  
+                <li class="instruction-item"><span class="info-key">press left arrow &#8592;</span>: <span class="info-detail">move Player to the left</span></li>
+                <li class="instruction-item"><span class="info-key">press right arrow &#8594;</span>: <span class="info-detail">move Player to the right</span></li>
+                <li class="instruction-item"><span class="info-key">press up arrow&#8593;</span>: <span class="info-detail">move Playerl up</span></li>
+                <li class="instruction-item"><span class="info-key">press down arrow &#8595;</span>: <span class="info-detail">move Player down</span></li>         
             </ul>
         </div>
     </div>        
 
     <!-- The Gameover Modal -->
-    <div id="gameover" class="modal-gameover">
+    <div id="modal-gameover" class="modal">
         <div class="modal-content modal-content-gameover">
-            <span class="gameover-close">&times;</span>
+            <span id="gameover-close" class="modal-close">&times;</span>
             <img class="gameover-img" src="images/char-smile.png" alt="character image">
             <h3>GAME OVER</h3>
             <ul class= "gameover-info"> 
