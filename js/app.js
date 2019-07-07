@@ -27,10 +27,17 @@ function initGame() {
     closeModal.addEventListener('click',hideModal);
     replayBtn.addEventListener('click',replayGame);
     document.addEventListener('keyup', movePlayer);
+    // Keyboard shortcut to replay 
+    document.addEventListener('keydown', replayShortcut);
 }
 
-
 // Sends the keys pressed to Player.handleInput() method to move player
+function replayShortcut(event) {
+    if(event.keyCode == 32 || event.keyCode == 13) {
+        replayGame();  
+    } 
+}
+
 function movePlayer(e) {
     var allowedKeys = {
         37: 'left',
@@ -226,15 +233,5 @@ let allEnemies = enemyY.map((y, index) => {
 
 // Place the player object in a variable called player
 const player = new Player(200,390,'images/char-boy.png');
-
-
-
-
-// Keyboard shortcut to replay 
-document.addEventListener("keydown", function(event) {
-    if(event.keyCode == 32) {
-        replayGame();  
-    } 
-})
 
 initGame();
