@@ -51,10 +51,23 @@ function winSound(){
     audio.play();
 }
 
+function collideSound(){
+    var audio = new Audio("sound/collide.mp3");
+    audio.play();
+}
+
 // Gameover sound after using all lifes
 function gameOverSound(){
-    var audio = new Audio("sound/gameover.mp3");
-    audio.play();
+    // if low score
+    if (score <= 20) { 
+        var audio = new Audio("sound/gameover.mp3");
+        audio.play();
+    }
+    // if high score
+    if (score > 20) { 
+        var audio = new Audio("sound/congrats.mp3");
+        audio.play();
+    }
 }
 
 
@@ -138,10 +151,11 @@ class Enemy {
         let enemyBottomMax = this.y + this.height;
         if (player.x > enemyLeftMax && player.x < enemyRightMax && player.y > enemyTopMax && player.y < enemyBottomMax){
             // Return player to initial position
+            collideSound();
             restartPlayer();
             life -=1 ;
             lifeDisplay.textContent = life;
-            console.log(life); 
+            
             //check if Game ends
             if (life == 0) {
                 gameOver();
