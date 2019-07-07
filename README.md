@@ -24,6 +24,8 @@ Let's try to win with the highest score!
 - Clone or download this Arcade Game repo.
 - Extract and open the folder.
 - Open the file `index.html` with your favorite browser.
+- The game has some sound effects, so please turn on your speaker if you're interested
+- Click on the question mark at the top panel if you need to read Instructions and how to play
 - Enjoy this fun game!
 
 ## Keyboard Controls
