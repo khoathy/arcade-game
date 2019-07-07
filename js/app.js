@@ -2,10 +2,13 @@
 
 // For Congrats modal
 const gameoverModal = document.getElementById('gameover');
-const closeModal = document.querySelector('.modal-close'); 
+const closeGameover = document.querySelector('.gameover-close'); 
 const replayBtn = document.querySelector('.modal-replayBtn');
-const gameoverScore = document.getElementById( 'gameover-score');
-const gameoverGrade = document.getElementById( 'gameover-grade');
+const gameoverScore = document.getElementById('gameover-score');
+const gameoverGrade = document.getElementById('gameover-grade');
+const instructionModal = document.getElementById('instruction');
+const closeInstruction = document.querySelector('.instruction-close'); 
+const instructionBtn = document.getElementById('instruction-btn');
   
 // For Info panel
 const scoreDisplay = document.getElementById('score-display');
@@ -24,12 +27,15 @@ function initGame() {
     lifeDisplay.innerText = " 3";
     enemyY = [60, 145, 225];
     //set up event listener for buttons
-    closeModal.addEventListener('click',hideModal);
+    instructionBtn.addEventListener('click',showInstruction);
+    closeInstruction.addEventListener('click',hideInstruction);
+    closeGameover.addEventListener('click',hideGameover);
     replayBtn.addEventListener('click',replayGame);
     document.addEventListener('keyup', movePlayer);
     // Keyboard shortcut to replay 
     document.addEventListener('keydown', replayShortcut);
 }
+
 
 // Sends the keys pressed to Player.handleInput() method to move player
 function replayShortcut(event) {
@@ -79,28 +85,28 @@ function gameOverSound(){
 
 
 /*
- * Gameover Sound and popup Modal when Game Over 
+ * Music and popup Modal when Game Over 
  */
 
 function gameOver(){
     setTimeout(gameOverSound,350);
-    setTimeout(showModal,200);
+    setTimeout(showGameover,200);
     document.removeEventListener('keyup', movePlayer);
 }
 
 // Display, close the modal, replay btn
-function showModal(){
+function showGameover(){
     gameoverModal.style.display = "flex";
     summaryGame();
 }
 
-function hideModal() {
+function hideGameover() {
     gameoverModal.style.display = "none";
     initGame();
 }
 
 function replayGame() {
-    hideModal();
+    hideGameover();
     initGame();
 }
 
@@ -126,6 +132,17 @@ function grade() {
 	}
 };
 
+
+// Show Instruction Modal
+function showInstruction(){
+    instructionModal.style.display = "flex";
+}
+
+function hideInstruction() {
+    instructionModal.style.display = "none";
+}
+
+// Reset player
 function restartPlayer(){
     player.x = 200;
     player.y = 390;

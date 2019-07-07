@@ -13,16 +13,34 @@
 <body>
     <section class="info-panel">
         <div class="score">Score : <span id="score-display" class="info-number">0</span></div>
-        <div class="life">
+        <div id="instruction-btn">
+            <img class="question-img" id="instruction" src="images/questionmark.png" alt="question image">
+        </div>    
+        </div><div class="life">
             <img class="life-img" src="images/char-boy.png" alt="life image">
             <span class="life-text">&nbsp; x &nbsp;</span><span id="life-display" class="info-number">3</span></div>
         </div>
     </section>
 
-    <!-- The Popup Modal -->
+    <!-- The Instruction Modal -->
+    <div id="instruction" class="modal-instruction">
+        <div class="modal-content modal-content-instruction">
+            <span class="instruction-close">&times;</span>
+            <h3>Instructions</h3>
+            <ul class= "instruction-info"> 
+                <li class="instruction-item"><span class="info-key">press space _ or enter &#8629;</span> <span class="info-detail">restart the game</span></li>  
+                <li class="instruction-item"><span class="info-key">press left arrow &#8592;</span><span class="info-detail">move Player to the left</span></li>
+                <li class="instruction-item"><span class="info-key">press right arrow &#8594;</span><span class="info-detail">move Player to the right</span></li>
+                <li class="instruction-item"><span class="info-key">press up arrow&#8593;</span> <span class="info-detail">move Playerl up</span></li>
+                <li class="instruction-item"><span class="info-key">press down arrow &#8595;</span> <span class="info-detail">move Player down</span></li>         
+            </ul>
+        </div>
+    </div>        
+
+    <!-- The Gameover Modal -->
     <div id="gameover" class="modal-gameover">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
+        <div class="modal-content modal-content-gameover">
+            <span class="gameover-close">&times;</span>
             <img class="gameover-img" src="images/char-smile.png" alt="character image">
             <h3>GAME OVER</h3>
             <ul class= "gameover-info"> 
