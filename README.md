@@ -1,4 +1,4 @@
-# Classic Arcade Game Clone Project
+# Arcade Game Project
 
 ## Table of Contents
 1. [About The Project](#about-the-project)
@@ -16,6 +16,9 @@ You have a Player and Enemies (Bugs). The goal of the Player is to reach the wat
 - You can control the Player by moving left, right, up and down
 - Once a the player collides with an enemy, the game is reset and the player moves back to the starting square
 - Once the player reaches the water (i.e., the top of the game board), the game is won
+Each time your player reaches the water (at the top) without colliding into any enemies, you score 10 points.
+The player has 3 lives and could die 3 times before the game is over.
+Let's try to win with the highest score!
 
 ## Instructions
 - Clone or download this Arcade Game repo.
@@ -28,4 +31,6 @@ You have a Player and Enemies (Bugs). The goal of the Player is to reach the wat
 - right → to move Player to the right
 - up ↑ to move Playerl up
 - down ↓ to move Player down
+- press space _ or enter to replay the game
+- press space _ or enter to close popup modal
 
