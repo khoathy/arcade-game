@@ -39,9 +39,15 @@ h3 {
 /* Styles for Info Panel */
 .info-panel {
     background: #edf5fe;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
     margin: 2.5rem auto -1rem;
     text-align: left;
     width: 30rem;
@@ -51,8 +57,12 @@ h3 {
 }
 
 .life {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .question-img {
@@ -195,6 +205,40 @@ h3 {
 
 
 /* Animation */
+@-webkit-keyframes bounceIn {
+    0%, 10% {
+        opacity: 0;
+        -webkit-transform: scale3d(0, 0, 0);
+                transform: scale3d(0, 0, 0);
+    }
+    20% {
+        -webkit-transform: scale3d(.5, .5, .5);
+                transform: scale3d(.5, .5, .5);
+    }
+    30% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1);
+                transform: scale3d(1.1, 1.1, 1.1);
+    }
+    50% {
+        opacity: 1;
+        -webkit-transform: scale3d(.9, .9, .9);
+                transform: scale3d(.9, .9, .9);
+    }
+    70% {
+        -webkit-transform: scale3d(1.03, 1.03, 1.03);
+                transform: scale3d(1.03, 1.03, 1.03);
+    }
+    90% {
+        -webkit-transform: scale3d(.97, .97, .97);
+                transform: scale3d(.97, .97, .97);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+    }
+}
+
 @keyframes bounceIn {
     0%, 10% {
         opacity: 0;
