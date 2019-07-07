@@ -227,7 +227,7 @@ class Player {
         const horizontal = 100;
         const vertical = 83;
 
-        if (move == "left" && this.x - horizontal > 0) {
+        if (move == "left" && this.x - horizontal >= 0) {
             this.x -= horizontal;
         } else if (move == "right" && this.x + horizontal < ctx.canvas.width) {
             this.x += horizontal;
